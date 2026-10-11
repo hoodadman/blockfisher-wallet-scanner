@@ -1,0 +1,137 @@
+{
+  "db_path": "trace.db",
+  "labels_path": "labels/book.json",
+  "second_brain_dir": "../second-brain",
+  "blockscan": "https://blockscan.com",
+  "etherscan_api": "https://api.etherscan.io/v2/api",
+  "etherscan_api_key": "",
+  "scan_groups": {
+    "eth": ["eth", "base", "arb", "op", "polygon", "bsc", "avax", "linea", "blast", "scroll", "hyperevm"],
+    "evm": ["eth", "base", "arb", "op", "polygon", "bsc", "avax", "linea", "blast", "scroll", "hyperevm"]
+  },
+  "chains": {
+    "eth": {
+      "enabled": true,
+      "kind": "evm",
+      "chain_id": 1,
+      "native": "ETH",
+      "decimals": 18,
+      "explorer": "https://etherscan.io",
+      "blockscout": "https://eth.blockscout.com/api/v2",
+      "timeout_sec": 20
+    },
+    "base": {
+      "enabled": true,
+      "kind": "evm",
+      "chain_id": 8453,
+      "native": "ETH",
+      "decimals": 18,
+      "explorer": "https://basescan.org",
+      "blockscout": "https://base.blockscout.com/api/v2",
+      "timeout_sec": 20
+    },
+    "arb": {
+      "enabled": true,
+      "kind": "evm",
+      "chain_id": 42161,
+      "native": "ETH",
+      "decimals": 18,
+      "explorer": "https://arbiscan.io",
+      "blockscout": "https://arbitrum.blockscout.com/api/v2",
+      "timeout_sec": 20
+    },
+    "op": {
+      "enabled": true,
+      "kind": "evm",
+      "chain_id": 10,
+      "native": "ETH",
+      "decimals": 18,
+      "explorer": "https://optimistic.etherscan.io",
+      "blockscout": "https://optimism.blockscout.com/api/v2",
+      "timeout_sec": 20
+    },
+    "polygon": {
+      "enabled": true,
+      "kind": "evm",
+      "chain_id": 137,
+      "native": "POL",
+      "decimals": 18,
+      "explorer": "https://polygonscan.com",
+      "blockscout": "https://polygon.blockscout.com/api/v2",
+      "timeout_sec": 20
+    },
+    "bsc": {
+      "enabled": true,
+      "kind": "evm",
+      "chain_id": 56,
+      "native": "BNB",
+      "decimals": 18,
+      "explorer": "https://bscscan.com",
+      "blockscout": "",
+      "timeout_sec": 20
+    },
+    "avax": {
+      "enabled": true,
+      "kind": "evm",
+      "chain_id": 43114,
+      "native": "AVAX",
+      "decimals": 18,
+      "explorer": "https://snowtrace.io",
+      "blockscout": "",
+      "timeout_sec": 20
+    },
+    "linea": {
+      "enabled": true,
+      "kind": "evm",
+      "chain_id": 59144,
+      "native": "ETH",
+      "decimals": 18,
+      "explorer": "https://lineascan.build",
+      "blockscout": "",
+      "timeout_sec": 20
+    },
+    "blast": {
+      "enabled": true,
+      "kind": "evm",
+      "chain_id": 81457,
+      "native": "ETH",
+      "decimals": 18,
+      "explorer": "https://blastscan.io",
+      "blockscout": "",
+      "timeout_sec": 20
+    },
+    "scroll": {
+      "enabled": true,
+      "kind": "evm",
+      "chain_id": 534352,
+      "native": "ETH",
+      "decimals": 18,
+      "explorer": "https://scrollscan.com",
+      "blockscout": "https://scroll.blockscout.com/api/v2",
+      "timeout_sec": 20
+    },
+    "hyperevm": {
+      "enabled": true,
+      "kind": "evm",
+      "chain_id": 999,
+      "native": "HYPE",
+      "decimals": 18,
+      "explorer": "https://hyperevmscan.io",
+      "blockscout": "",
+      "timeout_sec": 20
+    },
+    "sol": {
+      "enabled": true,
+      "kind": "solana",
+      "native": "SOL",
+      "decimals": 9,
+      "explorer": "https://solscan.io",
+      "rpc": "https://api.mainnet-beta.solana.com",
+      "rpc_fallbacks": [
+        "https://solana-rpc.publicnode.com"
+      ],
+      "solscan_public": "https://public-api.solscan.io",
+      "timeout_sec": 45
+    }
+  }
+}

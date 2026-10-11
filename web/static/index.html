@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wallet scanner — Blockfisher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,520;1,9..144,520&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/app.css" />
+  <script>
+    (function () {
+      var q = new URLSearchParams(location.search);
+      if (q.get("embed") !== "1") return;
+      document.documentElement.classList.add("is-embed");
+      var theme = q.get("theme");
+      if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+      window.addEventListener("message", function (event) {
+        var data = event.data || {};
+        if (data.type !== "blockfisher-theme") return;
+        if (data.theme === "light" || data.theme === "dark") document.documentElement.dataset.theme = data.theme;
+      });
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="#main" aria-label="Blockfisher wallet scanner">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M8 20c0-6 4-10 10-10 4 0 6 2 6 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M22 11c2 1 4 3 4 6 0 2-1.2 3.2-2.8 3.2-1.4 0-2.4-1-2.4-2.2" fill="none" stroke="#3c7dff" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="22.2" cy="15.2" r="1.2" fill="#3c7dff"/>
+        </svg>
+        Blockfisher
+      </a>
+      <span class="product-name">Wallet scanner</span>
+    </div>
+  </header>
+
+  <main id="main" class="shell">
+    <header class="intro">
+      <p class="kicker">Wallet scanner</p>
+      <h1>Paste a public address. See which exchanges and wallets it has touched.</h1>
+      <p class="lede">Four searches: exchange links, a second wallet, an amount, or token contracts this wallet deployed. Never a seed phrase.</p>
+    </header>
+
+    <nav class="modes" role="tablist" aria-label="Search type">
+      <button class="mode is-on" data-mode="cex" role="tab" aria-selected="true">
+        <span class="mode-num">1</span>
+        <span>
+          <strong>CEX links</strong>
+          <em>Exchange wallets that sent to or received from this address</em>
+        </span>
+      </button>
+      <button class="mode" data-mode="between" role="tab" aria-selected="false">
+        <span class="mode-num">2</span>
+        <span>
+          <strong>Counterparty</strong>
+          <em>Transactions between two wallets</em>
+        </span>
+      </button>
+      <button class="mode" data-mode="value" role="tab" aria-selected="false">
+        <span class="mode-num">3</span>
+        <span>
+          <strong>Value</strong>
+          <em>Transactions at, above, or below an amount</em>
+        </span>
+      </button>
+      <button class="mode" data-mode="deployments" role="tab" aria-selected="false">
+        <span class="mode-num">4</span>
+        <span>
+          <strong>Token deployments</strong>
+          <em>Contracts this wallet deployed, with CA and DexScreener</em>
+        </span>
+      </button>
+    </nav>
+
+    <form id="search-form" class="desk">
+      <div class="fields">
+        <label class="field">
+          <span id="addr-a-label">Wallet</span>
+          <input id="address" name="address" spellcheck="false" autocomplete="off"
+            placeholder="0x… or Solana address" required />
+        </label>
+        <label class="field is-hidden" id="other-wrap">
+          <span>Other wallet</span>
+          <input id="other" name="other" spellcheck="false" autocomplete="off"
+            placeholder="Second 0x… or Solana address" />
+        </label>
+        <div class="field-row is-hidden" id="value-wrap">
+          <label class="field">
+            <span>Amount</span>
+            <input id="amount" name="amount" inputmode="decimal" placeholder="0.5" />
+          </label>
+          <label class="field">
+            <span>Match</span>
+            <select id="cmp" name="cmp">
+              <option value="gte">At least</option>
+              <option value="eq">Exactly</option>
+              <option value="lte">At most</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Asset (optional)</span>
+            <input id="asset" name="asset" placeholder="ETH, USDC…" />
+          </label>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <label class="field compact">
+          <span>Chains</span>
+          <select id="chain" name="chain">
+            <option value="eth">All EVM (Blockscan family)</option>
+            <option value="eth-only">Ethereum only</option>
+            <option value="arb">Arbitrum</option>
+            <option value="base">Base</option>
+            <option value="sol">Solana</option>
+          </select>
+        </label>
+        <label class="field compact" id="tokens-wrap">
+          <span>Tokens</span>
+          <select id="tokens" name="tokens">
+            <option value="stables">Native + stables</option>
+            <option value="native">Native only</option>
+            <option value="all">Every token</option>
+          </select>
+        </label>
+        <button type="submit" class="go" id="go">Run scan</button>
+      </div>
+    </form>
+
+    <p class="status" id="status" hidden></p>
+    <section class="results" id="results" hidden></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>Blockfisher spots the phish before you bite, and follows the trail when you've been caught.</p>
+    </div>
+  </footer>
+  <script src="/app.js"></script>
+</body>
+</html>
