@@ -13,6 +13,18 @@ from urllib.parse import urlparse
 from queries import between_wallets, cex_links, token_deployments, value_txs
 
 WEB_ROOT = Path(__file__).resolve().parent / "static"
+FRAME_ANCESTORS = " ".join(
+    [
+        "'self'",
+        "http://blockfisher.co.uk",
+        "https://blockfisher.co.uk",
+        "http://www.blockfisher.co.uk",
+        "https://www.blockfisher.co.uk",
+        "https://*.onrender.com",
+        "http://127.0.0.1:8090",
+        "http://localhost:8090",
+    ]
+)
 
 
 def run_server(cfg: dict[str, Any], host: str, port: int) -> int:
@@ -82,6 +94,8 @@ def _handler_for(cfg: dict[str, Any]):
             self.send_header("Content-Type", content_type)
             self.send_header("Content-Length", str(len(data)))
             self.send_header("Cache-Control", "no-cache")
+            if content_type.startswith("text/html"):
+                self.send_header("Content-Security-Policy", f"frame-ancestors {FRAME_ANCESTORS}")
             self.end_headers()
             self.wfile.write(data)
 

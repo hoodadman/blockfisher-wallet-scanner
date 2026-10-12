@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sqlite3
 import subprocess
 import sys
@@ -659,9 +660,9 @@ def parse_args() -> argparse.Namespace:
     vl.add_argument("--asset", default="", help="Optional symbol filter, e.g. ETH or USDC.")
     _add_scan_flags(vl, default_limit=80)
 
-    sv = sub.add_parser("serve", help="Local Trace UI (default http://127.0.0.1:8788).")
-    sv.add_argument("--host", default="127.0.0.1")
-    sv.add_argument("--port", type=int, default=8788)
+    sv = sub.add_parser("serve", help="Trace UI. Local default is http://127.0.0.1:8788.")
+    sv.add_argument("--host", default="0.0.0.0" if os.environ.get("PORT") else "127.0.0.1")
+    sv.add_argument("--port", type=int, default=int(os.environ.get("PORT", "8788")))
 
     sub.add_parser("stats", help="Scan counts and enabled chains.")
     ls = sub.add_parser("list", help="List stored scans.")
